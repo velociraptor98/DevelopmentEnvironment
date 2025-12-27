@@ -1,4 +1,3 @@
-local wezterm = require 'wezterm'
 local gpu_adapters = require('utils.gpu-adapter')
 local backdrops = require('utils.backdrops')
 local colors = require('colors.custom')
@@ -8,8 +7,6 @@ return {
     front_end = 'WebGpu', ---@type 'WebGpu' | 'OpenGL' | 'Software'
     webgpu_power_preference = 'HighPerformance',
     webgpu_preferred_adapter = gpu_adapters:pick_best(),
-    -- webgpu_preferred_adapter = gpu_adapters:pick_manual('Dx12', 'IntegratedGpu'),
-    -- webgpu_preferred_adapter = gpu_adapters:pick_manual('Gl', 'Other'),
     underline_thickness = '1.5pt',
 
     -- cursor
@@ -32,8 +29,9 @@ return {
     enable_tab_bar = true,
     hide_tab_bar_if_only_one_tab = true,
     use_fancy_tab_bar = true,
-    tab_max_width = 20,
-    show_tab_index_in_tab_bar = false,
+    tab_max_width = 30,
+    tab_min_width = 20,
+    show_tab_index_in_tab_bar = true,
     switch_to_last_active_tab_when_closing_tab = true,
 
     -- command palette
