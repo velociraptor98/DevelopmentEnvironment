@@ -1,16 +1,15 @@
-local wezterm = require('wezterm')
-local platform = require('utils.platform')
-local backdrops = require('utils.backdrops')
+local wezterm = require("wezterm")
+local platform = require("utils.platform")
 local act = wezterm.action
 
 local mod = {}
 
 if platform.is_mac then
-   mod.SUPER = 'SUPER'
-   mod.SUPER_REV = 'SUPER|CTRL'
+	mod.SUPER = "SUPER"
+	mod.SUPER_REV = "SUPER|CTRL"
 elseif platform.is_win or platform.is_linux then
-   mod.SUPER = 'ALT' -- to not conflict with Windows key shortcuts
-   mod.SUPER_REV = 'ALT|CTRL'
+	mod.SUPER = "ALT" -- to not conflict with Windows key shortcuts
+	mod.SUPER_REV = "ALT|CTRL"
 end
 
 -- stylua: ignore
@@ -114,55 +113,7 @@ local keys = {
          window:maximize()
       end)
    },
-
-   -- background controls --
-   {
-      key = [[/]],
-      mods = mod.SUPER,
-      action = wezterm.action_callback(function(window, _pane)
-         backdrops:random(window)
-      end),
-   },
-   {
-      key = [[,]],
-      mods = mod.SUPER,
-      action = wezterm.action_callback(function(window, _pane)
-         backdrops:cycle_back(window)
-      end),
-   },
-   {
-      key = [[.]],
-      mods = mod.SUPER,
-      action = wezterm.action_callback(function(window, _pane)
-         backdrops:cycle_forward(window)
-      end),
-   },
-   {
-      key = [[/]],
-      mods = mod.SUPER_REV,
-      action = act.InputSelector({
-         title = 'InputSelector: Select Background',
-         choices = backdrops:choices(),
-         fuzzy = true,
-         fuzzy_description = 'Select Background: ',
-         action = wezterm.action_callback(function(window, _pane, idx)
-            if not idx then
-               return
-            end
-            ---@diagnostic disable-next-line: param-type-mismatch
-            backdrops:set_img(window, tonumber(idx))
-         end),
-      }),
-   },
-   {
-      key = 'b',
-      mods = mod.SUPER,
-      action = wezterm.action_callback(function(window, _pane)
-         backdrops:toggle_focus(window)
-      end)
-   },
-
-   -- panes --
+  -- panes --
    -- panes: split panes
    {
       key = [[\]],
@@ -239,19 +190,19 @@ local key_tables = {
 }
 
 local mouse_bindings = {
-   -- Ctrl-click will open the link under the mouse cursor
-   {
-      event = { Up = { streak = 1, button = 'Left' } },
-      mods = 'CTRL',
-      action = act.OpenLinkAtMouseCursor,
-   },
+	-- Ctrl-click will open the link under the mouse cursor
+	{
+		event = { Up = { streak = 1, button = "Left" } },
+		mods = "CTRL",
+		action = act.OpenLinkAtMouseCursor,
+	},
 }
 
 return {
-   disable_default_key_bindings = true,
-   -- disable_default_mouse_bindings = true,
-   leader = { key = 'Space', mods = mod.SUPER_REV },
-   keys = keys,
-   key_tables = key_tables,
-   mouse_bindings = mouse_bindings,
+	disable_default_key_bindings = true,
+	-- disable_default_mouse_bindings = true,
+	leader = { key = "Space", mods = mod.SUPER_REV },
+	keys = keys,
+	key_tables = key_tables,
+	mouse_bindings = mouse_bindings,
 }
