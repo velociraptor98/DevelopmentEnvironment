@@ -1,6 +1,11 @@
 local gpu_adapters = require("utils.gpu-adapter")
 local backdrops = require("utils.backdrops")
 local colors = require("colors.custom")
+local platform = require("utils.platform")
+local terminal
+if platform.is_windows then
+	terminal = { "powershell.exe", "-NoLogo" }
+end
 
 return {
 	max_fps = 120,
@@ -41,15 +46,15 @@ return {
 
 	-- window
 	window_padding = {
-		left = 16,
+		left = 8,
 		right = 0,
-		top = 4,
+		top = 8,
 		bottom = 0,
 	},
 	adjust_window_size_when_changing_font_size = false,
 	window_close_confirmation = "NeverPrompt",
 	window_frame = {
-		active_titlebar_bg = "#282828",
+		active_titlebar_bg = "#0c0b0f",
 	},
 	inactive_pane_hsb = {
 		saturation = 1,
@@ -63,4 +68,6 @@ return {
 		fade_out_duration_ms = 250,
 		target = "CursorColor",
 	},
+	window_decorations = "NONE | RESIZE",
+	default_prog = terminal,
 }
